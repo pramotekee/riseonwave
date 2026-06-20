@@ -592,6 +592,7 @@ function openLink(url){ window.open(url,'_blank'); }
 
 async function loadGallery(){
   const rows=await csv(GALLERY_CSV);
+  console.log('GALLERY ROWS:', rows);
   document.getElementById('gallery').innerHTML=rows.map(r=>`
     <img 
       src="https://drive.google.com/thumbnail?id=${r.photo_id}&sz=w600"
