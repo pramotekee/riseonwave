@@ -591,6 +591,7 @@ function handleOverlayClick(e){
 function openLink(url){ window.open(url,'_blank'); }
 
 async function loadGallery(){
+  console.log('GALLERY URL:', GALLERY_CSV);
   const rows=await csv(GALLERY_CSV);
   console.log('GALLERY ROWS:', rows);
   document.getElementById('gallery').innerHTML=rows.map(r=>`
