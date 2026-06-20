@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISE ON WAVE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFEF9;
+  --surface: #FFFFFF;
+  --accent: #0A2540;
+  --accent-mid: #1A3F6F;
+  --accent-light: #2D6BE4;
+  --text-primary: #0A2540;
+  --text-secondary: #6B7280;
+  --border: #E5E7EB;
+  --highlight: #F5C518;
+  --card-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  --card-shadow-hover: 0 8px 28px rgba(0,0,0,0.13);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  background: var(--accent);
+  padding: 14px 24px;
+  display: flex;
+  gap: 20px;
+  z-index: 100;
+}
+nav a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+nav a:hover { color: #fff; }
+
+/* HERO */
+header {
+  padding: 72px 20px 80px;
+  text-align: center;
+  background: var(--accent);
+  border-radius: 0 0 36px 36px;
+  margin-bottom: 32px;
+}
+header h1 {
+  font-size: 52px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+header p {
+  font-size: 15px;
+  color: var(--highlight);
+  margin-top: 12px;
+  font-weight: 400;
+}
+
+/* SECTIONS (program mode) */
+.program-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+.program-section h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--accent);
+}
+
+.program-section p {
+  margin-bottom: 24px;
+  line-height: 1.8;
+}
+
+.wave-lines,
+.highlight-lines,
+.closing-line {
+  font-weight: 500;
+}
+
+.highlight-lines {
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.closing-line {
+  font-size: 20px;
+  color: var(--accent);
+}
+
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+  gap: 12px;
+}
+.gallery img { width: 100%; border-radius: var(--radius); }
+
+/* FAQ */
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+}
+.faq-item strong { font-size: 15px; }
+.faq-item p { color: var(--text-secondary); margin-top: 6px; font-size: 14px; }
+
+.benefit-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  box-shadow: var(--card-shadow);
+  border-top: 3px solid var(--accent-light);
+}
+.benefit-card .b-headline {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.benefit-card .b-caption {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* MODE TOGGLE */
+.mode-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 20px 32px;
+}
+.mode-btn {
+  padding: 9px 28px;
+  border-radius: 24px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.mode-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* MEMBER VIEW */
+#member-view { display: none; padding-bottom: 60px; }
+#program-view {}
+
+/* SEARCH */
+.search-container {
+  display: flex;
+  gap: 10px;
+  padding: 0 20px 14px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.search-box { flex: 1; position: relative; }
+.search-box input {
+  width: 100%;
+  padding: 11px 18px 11px 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.search-box input:focus {
+  border-color: var(--accent-mid);
+  box-shadow: 0 0 0 3px rgba(26,63,111,0.08);
+}
+.search-box::before {
+  content: "🔍";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  opacity: 0.4;
+}
+
+/* CHIP FILTER */
+.tabs-wrapper {
+  padding: 0 20px 20px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  max-width: 900px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+}
+.tabs-wrapper::-webkit-scrollbar { display: none; }
+.tab-btn {
+  white-space: nowrap;
+  padding: 7px 18px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.tab-btn:hover { color: var(--text-primary); }
+.tab-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* MEMBER GRID */
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+  gap: 16px;
+  padding: 0 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.member-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.member-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-3px);
+}
+.member-card img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.member-card .card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.member-card .card-nick {
+  font-size: 13px;
+  color: var(--accent-light);
+  margin-top: 2px;
+}
+.member-card .card-job {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* MODAL */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 500;
+  justify-content: center;
+  align-items: flex-end;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--surface);
+  width: 100%;
+  max-width: 520px;
+  border-radius: 24px 24px 0 0;
+  padding: 28px 24px 40px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-close {
+  float: right;
+  background: var(--bg);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 32px;
+  text-align: center;
+}
+.modal-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 16px auto 12px;
+}
+.modal-name {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.modal-sub {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+.modal-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 12px;
+  margin: 20px 0;
+  font-size: 14px;
+}
+.info-label { color: var(--text-secondary); font-weight: 500; }
+.info-value { color: var(--text-primary); }
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.contact-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.contact-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.share-btn {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#top">RISE ON WAVE</a>
+</nav>
+
+<header id="top">
+  <h1>RISE ON WAVE</h1>
+  <p>Disconnect from the noise. Connect with your inner flow.</p>
+</header>
+
+<div class="mode-toggle">
+  <button class="mode-btn active" onclick="switchMode('program')">Program</button>
+  <button class="mode-btn" onclick="switchMode('member')">Member</button>
+</div>
+
+<div id="program-view">
+
+<section class="program-section">
+<h2>Surfing is more than a sport.</h2>
+
+<p>
+Step away from the noise of everyday life. The ocean teaches a different way forward.
+</p>
+
+
+<p class="wave-lines">
+Read the wave.<br>
+Move with it.<br>
+Grow through it.
+</p>
+
+
+<p class="closing-line">
+The city gives you noise.<br>
+The waves show you flow.
+</p>
+
+</section>
+
+<section style="max-width:900px;margin:0 auto;padding:0 20px 40px;">
+<div id="gallery" class="gallery"></div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:999;justify-content:center;align-items:center;cursor:zoom-out;">
+  <img id="lightbox-img" style="max-width:92vw;max-height:92vh;border-radius:12px;object-fit:contain;">
+</div>
+
+<section class="program-section">
+<div id="benefits" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;"></div>
+</section>
+
+<section class="program-section">
+<h2>Program Detail</h2>
+<p>Edit freely later.</p>
+</section>
+
+
+<section class="program-section">
+<h2>FAQ</h2>
+<div id="faq"></div>
+</section>
+
+</div>
+
+<!-- MEMBER VIEW -->
+<div id="member-view">
+  <div class="search-container">
+    <div class="search-box">
+      <input id="searchInput" placeholder="Search name, nickname..." />
+    </div>
+  </div>
+
+  <div class="tabs-wrapper">
+    <button class="tab-btn active" onclick="filterClass('all')">All</button>
+    <button class="tab-btn" onclick="filterClass('Class 1')">Class 1</button>
+    <button class="tab-btn" onclick="filterClass('Class 2')">Class 2</button>
+    <button class="tab-btn" onclick="filterClass('Class 3')">Class 3</button>
+  </div>
+
+  <div id="memberGrid" class="member-grid"></div>
+</div>
+
+<!-- MODAL -->
+<div id="modal-overlay" class="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const SHEET_ID="1BA8yCAGVwAwZO56poWY6zc4saxfWmRUKxPUGx80bmVg";
+
+const MEMBERS_CSV=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=members`;
+const GALLERY_CSV=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=gallery`;
+const FAQ_CSV=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=faq`;
+const BENEFITS_CSV=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=benefits`;
+
+let members=[];
+let activeClass='all';
+
+function switchMode(mode) {
+  document.getElementById('program-view') && (document.getElementById('program-view').style.display = mode==='program' ? 'block' : 'none');
+  document.getElementById('member-view').style.display = mode==='member' ? 'block' : 'none';
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+async function csv(url){
+ const txt=await fetch(url).then(r=>r.text());
+ const rows=txt.trim().split('\n').map(r=>r.split(','));
+ const headers=rows.shift();
+ return rows.map(row=>Object.fromEntries(headers.map((h,i)=>[h.trim(),row[i]||''])));
+}
+
+async function loadMembers(){
+ members=await csv(MEMBERS_CSV);
+ renderMembers();
+}
+
+function renderMembers(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const list=members.filter(m=>{
+    const name=`${m.firstname} ${m.lastname} ${m.nickname}`.toLowerCase();
+    const classOk=activeClass==='all'||m.class===activeClass;
+    return name.includes(q)&&classOk;
+  });
+
+  document.getElementById('memberGrid').innerHTML=list.map(m=>`
+  <div class="member-card" onclick="openMember('${m.id}')">
+    <img src="https://drive.google.com/thumbnail?id=${m.photo_id}&sz=w400" />
+    <div class="card-name">${m.firstname} ${m.lastname}</div>
+    <div class="card-nick">${m.nickname}</div>
+    <div class="card-job">${m.job_title}</div>
+  </div>`).join('');
+}
+
+function filterClass(c){
+  activeClass=c;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderMembers();
+}
+
+function openMember(id){
+  const m=members.find(x=>String(x.id)===String(id));
+  if(!m) return;
+
+  const contacts=[];
+  if(m.contact_line) contacts.push(`<button class="contact-btn" onclick="openLink('https://line.me/ti/p/${m.contact_line}')">💬 LINE</button>`);
+  if(m.instagram)    contacts.push(`<button class="contact-btn" onclick="openLink('https://instagram.com/${m.instagram.replace('@','')}')">📷 Instagram</button>`);
+  if(m.tiktok)       contacts.push(`<button class="contact-btn" onclick="openLink('https://tiktok.com/@${m.tiktok.replace('@','')}')">🎵 TikTok</button>`);
+  if(m.youtube)      contacts.push(`<button class="contact-btn" onclick="openLink('${m.youtube}')">▶ YouTube</button>`);
+  contacts.push(`<button class="contact-btn share-btn" onclick="shareProfile('${m.id}')">🔗 Share</button>`);
+
+  document.getElementById('modal-body').innerHTML=`
+    <img class="modal-photo" src="https://drive.google.com/thumbnail?id=${m.photo_id}&sz=w400" />
+    <div class="modal-name">${m.firstname} ${m.lastname}</div>
+    <div class="modal-sub">${m.nickname} · Class ${m.class}</div>
+    <div class="modal-info">
+      <span class="info-label">Age</span><span class="info-value">${m.age}</span>
+      <span class="info-label">Job</span><span class="info-value">${m.job_title}</span>
+      <span class="info-label">About</span><span class="info-value">${m.about_me}</span>
+      <span class="info-label">From this trip</span><span class="info-value">${m.from_this_trip}</span>
+    </div>
+    <div class="contact-links">${contacts.join('')}</div>
+  `;
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('modal-overlay')) closeModal();
+}
+
+function openLink(url){ window.open(url,'_blank'); }
+
+async function loadGallery(){
+  const rows=await csv(GALLERY_CSV);
+  document.getElementById('gallery').innerHTML=rows.map(r=>`
+    <img 
+      src="https://drive.google.com/thumbnail?id=${r.photo_id}&sz=w600"
+      style="width:100%;border-radius:12px;cursor:zoom-in;transition:transform 0.2s;object-fit:cover;aspect-ratio:1/1;"
+      onmouseover="this.style.transform='scale(1.03)'"
+      onmouseout="this.style.transform='scale(1)'"
+      onclick="openLightbox('${r.photo_id}')"
+    >
+  `).join('');
+}
+
+function openLightbox(photo_id){
+  document.getElementById('lightbox-img').src=`https://drive.google.com/thumbnail?id=${photo_id}&sz=w1600`;
+  const lb=document.getElementById('lightbox');
+  lb.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+
+function closeLightbox(){
+  document.getElementById('lightbox').style.display='none';
+  document.body.style.overflow='';
+}
+
+async function loadFAQ(){
+  const rows=await csv(FAQ_CSV);
+  document.getElementById('faq').innerHTML=rows.map(r=>
+  `<div class="faq-item"><strong>${r.q}</strong><p>${r.a}</p></div>`).join('');
+}
+
+async function loadBenefits(){
+  const rows=await csv(BENEFITS_CSV);
+  document.getElementById('benefits').innerHTML=rows.map(r=>`
+    <div class="benefit-card">
+      <div class="b-headline">${r.headline}</div>
+      <div class="b-caption">${r.caption}</div>
+    </div>
+  `).join('');
+}
+
+async function shareProfile(id){
+  const url=location.origin + location.pathname + '?member=' + id;
+  if(navigator.share){
+    try{ await navigator.share({url}); }catch(e){}
+  }else{
+    try{ await navigator.clipboard.writeText(url); alert('Link copied ✓'); }catch(e){}
+  }
+}
+
+document.getElementById('searchInput').addEventListener('input',renderMembers);
+
+loadMembers();
+loadGallery();
+loadFAQ();
+loadBenefits();
+</script>
+
+<footer style="background:var(--accent);color:#fff;padding:48px 24px 32px;margin-top:60px;">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+    
+    <!-- LEFT -->
+    <div>
+      <div style="font-size:20px;font-weight:700;letter-spacing:3px;margin-bottom:8px;">RISE ON WAVE</div>
+      <div style="font-size:13px;color:var(--highlight);margin-bottom:24px;">Ride the wave. Meet remarkable people.</div>
+
+      <!-- Social Icons -->
+      <div style="display:flex;gap:16px;margin-bottom:24px;">
+        <a href="https://tiktok.com/@YOUR_HANDLE" target="_blank" style="color:#fff;text-decoration:none;font-size:22px;" title="TikTok">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.78a4.85 4.85 0 01-1.02-.09z"/></svg>
+        </a>
+        <a href="https://instagram.com/YOUR_HANDLE" target="_blank" style="color:#fff;text-decoration:none;" title="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://facebook.com/YOUR_PAGE" target="_blank" style="color:#fff;text-decoration:none;" title="Facebook">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+
+      <!-- Contact via Line -->
+      <a href="https://line.me/ti/p/YOUR_LINE_OA_ID" target="_blank"
+        style="display:inline-flex;align-items:center;gap:8px;background:#06C755;color:#fff;padding:10px 20px;border-radius:24px;text-decoration:none;font-size:14px;font-weight:600;">
+        💬 Contact via LINE
+      </a>
+    </div>
+
+    <!-- RIGHT -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <!-- QR Placeholder -->
+      <div style="width:120px;height:120px;background:rgba(255,255,255,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;color:rgba(255,255,255,0.5);border:1px dashed rgba(255,255,255,0.3);">
+        QR Code<br>LINE OA
+      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);">Scan to follow us on LINE</div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Links -->
+  <div style="max-width:900px;margin:32px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);display:flex;gap:24px;flex-wrap:wrap;">
+    <a href="https://aromatic-equinox-5e8.notion.site/About-Us-37905e072cdf80969b70f597d7ed2d46" target="_blank" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;">About</a>
+    <a href="https://aromatic-equinox-5e8.notion.site/Terms-of-Services-37905e072cdf80c6a138c3d9b15debce" target="_blank" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;">Terms</a>
+    <a href="https://aromatic-equinox-5e8.notion.site/Privacy-Policy-37905e072cdf80f9bf83fc7b5da1992d" target="_blank" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;">Privacy</a>
+    <span style="color:rgba(255,255,255,0.3);font-size:13px;margin-left:auto;">© 2025 Rise on Wave</span>
+  </div>
+</footer>
+
+</body>
+</html>
