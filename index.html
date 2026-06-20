@@ -641,10 +641,13 @@ loadMembers().then(() => {
   const params = new URLSearchParams(window.location.search);
   const memberId = params.get('member');
   if (memberId) {
-    switchMode('member');
+    // สลับไป member mode ก่อน
+    document.getElementById('program-view').style.display = 'none';
+    document.getElementById('member-view').style.display = 'block';
     document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.mode-btn')[1].classList.add('active');
-    openMember(memberId);
+    // เปิด modal ตรง
+    setTimeout(() => openMember(memberId), 100);
   }
 });
 loadGallery();
