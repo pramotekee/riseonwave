@@ -502,7 +502,12 @@ async function csv(url){
   const txt = await fetch(url).then(r => r.text());
   const rows = parseCSV(txt);
   const headers = rows.shift();
-  return rows.map(row => Object.fromEntries(headers.map((h,i) => [h.trim().replace(/^"|"$/g,''), (row[i]||'').replace(/^"|"$/g,'')])));
+  return rows.map(row => Object.fromEntries(
+    headers.map((h,i) => [
+      h.trim().replace(/^"|"$/g,'').replace(/^\uFEFF/,''),
+      (row[i]||'').replace(/^"|"$/g,'').trim()
+    ])
+  ));
 }
 
 async function loadMembers(){
