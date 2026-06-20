@@ -478,16 +478,46 @@ function switchMode(mode) {
   event.target.classList.add('active');
 }
 
+function parseCSV(txt) {
+  const rows = [];
+  let row = [], field = '', inQ = false;
+  for (let i = 0; i < txt.length; i++) {
+    const ch = txt[i];
+    if (inQ) {
+      if (ch === '"' && txt[i+1] === '"') { field += '"'; i++; }
+      else if (ch === '"') inQ = false;
+      else field += ch;
+    } else {
+      if (ch === '"') inQ = true;
+      else if (ch === ',') { row.push(field.trim()); field = ''; }
+      else if (ch === '\n') { row.push(field.trim()); rows.push(row); row = []; field = ''; }
+      else if (ch !== '\r') field += ch;
+    }
+  }
+  if (field || row.length) { row.push(field.trim()); rows.push(row); }
+  return rows;
+}
+
 async function csv(url){
- const txt=await fetch(url).then(r=>r.text());
- const rows=txt.trim().split('\n').map(r=>r.split(','));
- const headers=rows.shift();
- return rows.map(row=>Object.fromEntries(headers.map((h,i)=>[h.trim(),row[i]||''])));
+  const txt = await fetch(url).then(r => r.text());
+  const rows = parseCSV(txt);
+  const headers = rows.shift();
+  return rows.map(row => Object.fromEntries(headers.map((h,i) => [h.trim().replace(/^"|"$/g,''), (row[i]||'').replace(/^"|"$/g,'')])));
 }
 
 async function loadMembers(){
- members=await csv(MEMBERS_CSV);
- renderMembers();
+  members = await csv(MEMBERS_CSV);
+  buildClassFilter();
+  renderMembers();
+}
+
+function buildClassFilter(){
+  const classes = ['all', ...new Set(members.map(m => m.class).filter(c => c))].sort();
+  document.querySelector('.tabs-wrapper').innerHTML = classes.map(c => `
+    <button class="tab-btn ${c==='all'?'active':''}" onclick="filterClass('${c}')">
+      ${c==='all' ? 'All' : 'Class ' + c}
+    </button>
+  `).join('');
 }
 
 function renderMembers(){
