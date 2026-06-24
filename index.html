@@ -1140,23 +1140,21 @@ async function shareProfile(id) {
   const m = members.find(x => String(x.id) === String(id));
   if (!m) return;
   
-  // สร้าง URL
-  const url = location.origin + location.pathname + '?member=' + id;
+  // สร้างข้อความที่ต้องการแชร์ (แบบสั้นๆ เดียว)
+  const shareText = `${m.nickname}, Class ${m.class} member\nhttps://riseonwave.vercel.app/?member=${id}`;
   
-  // สร้างข้อความ: ชื่อเล่น + Class + URL (บรรทัดเดียว)
-  const shareText = `${m.nickname}, Class ${m.class} member\n${url}`;
-  
+  // ใช้ navigator.share ถ้ามี
   if (navigator.share) {
     try {
       await navigator.share({
-        title: `${m.nickname} - RISE ON WAVE Member`,
-        text: shareText,
-        // ❌ ลบ url ออก! ไม่อย่างนั้นจะซ้ำ
+        text: shareText  // ส่งแค่ text อย่างเดียว!
+        // ❌ ไม่ต้องมี title, ไม่ต้องมี url
       });
     } catch(e) {
       // User กดยกเลิก ไม่ต้องทำอะไร
     }
   } else {
+    // ถ้าไม่มี navigator.share (Desktop) ให้ Copy
     try {
       await navigator.clipboard.writeText(shareText);
       alert('✅ Copied! Share this with your friends.');
