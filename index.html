@@ -867,6 +867,15 @@ const BENEFITS_CSV="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?
 let members=[];
 let activeClass='all';
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+
 function switchMode(mode) {
   document.getElementById('program-view') && (document.getElementById('program-view').style.display = mode==='program' ? 'block' : 'none');
   document.getElementById('member-view').style.display = mode==='member' ? 'block' : 'none';
