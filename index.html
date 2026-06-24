@@ -773,7 +773,7 @@ The rest, the waves will take care of.
 
 <section class="program-section">
   <h2 style="text-align:center;">Retreat package</h2>
-  <p style="text-align:center;color:var(--text-secondary);margin-bottom:32px;">Choose your perfect retreat package</p>
+  <p style="text-align:center;color:var(--text-secondary);margin-bottom:32px;">Choose the wave that fits you</p>
 
   <div class="pricing-grid">
     <!-- Card 1: Single -->
@@ -1083,10 +1083,16 @@ function openAccordionLightbox(imageId) {
   document.getElementById('lightbox-counter').textContent = '1 / 1';
 }
 
-async function loadFAQ(){
-  const rows=await csv(FAQ_CSV);
-  document.getElementById('faq').innerHTML=rows.map(r=>
-  `<div class="faq-item"><strong>${r.q}</strong><p>${r.a}</p></div>`).join('');
+async function loadFAQ() {
+  const rows = await csv(FAQ_CSV);
+  document.getElementById('faq').innerHTML = rows.map((r, index) => `
+    <div class="accordion">
+      <details>
+        <summary>${r.q}</summary>
+        <p>${r.a}</p>
+      </details>
+    </div>
+  `).join('');
 }
 
 async function loadBenefits(){
