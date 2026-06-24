@@ -1135,25 +1135,30 @@ async function loadBenefits(){
   `).join('');
 }
 
-async function shareProfile(id){
+async function shareProfile(id) {
   // หาข้อมูลสมาชิก
   const m = members.find(x => String(x.id) === String(id));
   if (!m) return;
   
-  // สร้างข้อความที่ต้องการแชร์
-  const message = `${m.nickname}, Class ${m.class} member\n${location.origin + location.pathname + '?member=' + id}`;
+  // สร้าง URL
+  const url = location.origin + location.pathname + '?member=' + id;
+  
+  // สร้างข้อความ: ชื่อเล่น + Class + URL (บรรทัดเดียว)
+  const shareText = `${m.nickname}, Class ${m.class} member\n${url}`;
   
   if (navigator.share) {
     try {
       await navigator.share({
         title: `${m.nickname} - RISE ON WAVE Member`,
-        text: message,
-        url: location.origin + location.pathname + '?member=' + id
+        text: shareText,
+        // ❌ ลบ url ออก! ไม่อย่างนั้นจะซ้ำ
       });
-    } catch(e) {}
+    } catch(e) {
+      // User กดยกเลิก ไม่ต้องทำอะไร
+    }
   } else {
     try {
-      await navigator.clipboard.writeText(message);
+      await navigator.clipboard.writeText(shareText);
       alert('✅ Copied! Share this with your friends.');
     } catch(e) {
       alert('❌ Failed to copy. Please try again.');
