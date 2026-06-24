@@ -996,7 +996,7 @@ classes.unshift('all');
 
 function renderMembers(){
   const q=document.getElementById('searchInput').value.toLowerCase();
-  const list=members.filter(m=>{
+  let list = members.filter(m => {
     const name=`${m.firstname} ${m.lastname} ${m.nickname}`.toLowerCase();
     const classOk=activeClass==='all'||m.class===activeClass;
     return name.includes(q)&&classOk;
