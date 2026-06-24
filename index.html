@@ -712,7 +712,7 @@ The rest, the waves will take care of.
 
 <section class="program-section">
   <h2>Retreat Flow</h2>
-  <p style="color: var(--text-secondary); margin-bottom: 24px;">5-Day Reset Journey</p>
+  <p style="color: var(--text-secondary); margin-bottom: 24px;">5-Day Reset Journey @LA SOLAYA KHAO LAK</p>
 
   <div class="accordion">
     <details>
@@ -840,6 +840,19 @@ The rest, the waves will take care of.
       <a href="วาง link ที่ user กดแล้วพาไปส่ง line OA" class="pricing-btn">Book Now</a>
     </div>
   </div>
+</section>
+
+<section class="program-section">
+  <h2>Program Schedule</h2>
+  <p style="color: var(--text-secondary); margin-bottom: 20px;">Upcoming retreat dates</p>
+  
+  <!-- รูปตารางทริป -->
+  <img 
+    src="https://drive.google.com/thumbnail?id=1tLQt1ttBtwp5wf2YXGPM0WpxOKdWI5hL&sz=w1200" 
+    alt="Program Schedule"
+    onclick="openScheduleLightbox('YOUR_SCHEDULE_IMAGE_ID')"
+    style="width:100%;max-width:900px;border-radius:var(--radius);cursor:pointer;display:block;margin:0 auto;box-shadow:var(--card-shadow);"
+  />
 </section>
 
 <!-- ===== DIVIDER IMAGE ===== -->
@@ -1102,6 +1115,15 @@ function lightboxNav(dir){
 function closeLightbox(){
   document.getElementById('lightbox').style.display='none';
   document.body.style.overflow='';
+}
+
+// ===== SCHEDULE LIGHTBOX =====
+function openScheduleLightbox(imageId) {
+  document.getElementById('lightbox-img').src = 
+    `https://drive.google.com/thumbnail?id=${imageId}&sz=w1600`;
+  document.getElementById('lightbox').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('lightbox-counter').textContent = '1 / 1';
 }
 
 // ===== ACCORDION LIGHTBOX =====
