@@ -55,7 +55,6 @@ nav a:hover { color: #fff; }
 header {
   padding: 72px 20px 80px;
   text-align: center;
-  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://drive.google.com/thumbnail?id=1HmEQT68fmzaHFbw66gApbPXaZOHhzaup&sz=w1600') center/cover no-repeat;
   border-radius: 0 0 36px 36px;
   margin-bottom: 32px;
   min-height: 60vh;
@@ -63,6 +62,8 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-size: cover;
+  background-position: center;
 }
 header h1 {
   font-size: 52px;
@@ -893,6 +894,35 @@ const BENEFITS_CSV="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?
 
 let members=[];
 let activeClass='all';
+
+// ===== HERO BACKGROUND RANDOM =====
+const heroImages = [
+  '1HmEQT68fmzaHFbw66gApbPXaZOHhzaup',   // รูปที่ 1
+  '1P5I8BCawnnF-KF2WCCBQe2njv239WjRI',   // รูปที่ 2
+  '1KsmUUapZv19uRaMnTbzkEsOzc5TGNhcM/',  // รูปที่ 3
+  '10sD--tAVPv7fL8klfeux1RFAnFov54n-'    // รูปที่ 4
+  '1yPwU6gXfEq2f2WiVb5H88KVey4GfWGfd'.   // รูปที่ 5
+  '1VZAKC16m_c7x2j9DinmdlkrvesdLvmiI'.   // รูปที่ 6
+  '162JYdiZL6Pm85CEj4nrMIITDz8mtowpI'.   // รูปที่ 7
+  '18Z5o5SVLL6bi467tAfc5OTSrl9qlk4RW'.   // รูปที่ 8
+  '17xrn02jWMdTakz7c-NN5qDie6vbu23p0'.   // รูปที่ 9
+  'YOUR_10TH_IMAGE_ID'                   // รูปที่ 10
+  'YOUR_11TH_IMAGE_ID'                   // รูปที่ 11
+  'YOUR_12TH_IMAGE_ID'                   // รูปที่ 12
+];
+
+function setRandomHero() {
+  const randomIndex = Math.floor(Math.random() * heroImages.length);
+  const imageId = heroImages[randomIndex];
+  const hero = document.querySelector('header');
+  hero.style.backgroundImage = `
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), 
+    url('https://drive.google.com/thumbnail?id=${imageId}&sz=w1600')
+  `;
+}
+
+// เรียกใช้ตอนโหลดหน้า
+setRandomHero();
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
