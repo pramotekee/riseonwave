@@ -54,9 +54,14 @@ nav a:hover { color: #fff; }
 header {
   padding: 72px 20px 80px;
   text-align: center;
-  background: var(--accent);
+  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://drive.google.com/uc?export=view&id=1HmEQT68fmzaHFbw66gApbPXaZOHhzaup') center/cover no-repeat;
   border-radius: 0 0 36px 36px;
   margin-bottom: 32px;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 header h1 {
   font-size: 52px;
@@ -67,7 +72,7 @@ header h1 {
 }
 header p {
   font-size: 15px;
-  color: var(--highlight);
+  color: #fff;
   margin-top: 12px;
   font-weight: 400;
 }
@@ -82,7 +87,7 @@ header p {
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 16px;
-  color: var(--accent);
+  color: #2960F6;
 }
 
 .program-section p {
@@ -161,6 +166,28 @@ header p {
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.6;
+}
+
+/* 🔥 สีขอบแต่ละการ์ด */
+.benefit-card:nth-child(1) {
+  border-top-color: #FF6B6B;
+  background: #FFF5F5;
+}
+.benefit-card:nth-child(2) {
+  border-top-color: #4ECDC4;
+  background: #F0FFFE;
+}
+.benefit-card:nth-child(3) {
+  border-top-color: #FFD93D;
+  background: #FFFDF0;
+}
+.benefit-card:nth-child(4) {
+  border-top-color: #6C5CE7;
+  background: #F5F0FF;
+}
+.benefit-card:nth-child(5) {
+  border-top-color: #FF8A5C;
+  background: #FFF5F0;
 }
 
 /* MODE TOGGLE */
@@ -388,17 +415,242 @@ header p {
   color: #fff;
   border-color: var(--accent);
 }
+
+/* ===== ACCORDION RETREAT ===== */
+.accordion details {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--accent-light);
+  transition: all 0.2s;
+}
+
+.accordion details:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+.accordion details[open] {
+  border-left-color: var(--highlight);
+}
+
+.accordion summary {
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 0;
+  color: var(--text-primary);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion summary::after {
+  content: "▸";
+  margin-left: auto;
+  transition: transform 0.2s;
+  color: var(--text-secondary);
+}
+
+.accordion details[open] summary::after {
+  transform: rotate(90deg);
+}
+
+.accordion details img {
+  width: 100%;
+  border-radius: 10px;
+  margin: 12px 0 8px;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+.accordion details p {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin: 8px 0 4px;
+  font-size: 14px;
+}
+
+/* ===== PRICING CARDS ===== */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 12px;
+}
+
+.pricing-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28px 24px 32px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.pricing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.pricing-card.popular {
+  border-color: var(--accent-light);
+  box-shadow: 0 4px 20px rgba(45, 107, 228, 0.15);
+}
+
+.pricing-card.popular:hover {
+  box-shadow: 0 8px 32px rgba(45, 107, 228, 0.25);
+}
+
+.pricing-badge {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.pricing-badge.featured {
+  background: var(--highlight);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  position: absolute;
+  top: -10px;
+  right: 20px;
+}
+
+.pricing-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 4px 0 8px;
+}
+
+.pricing-amount {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 8px 0 2px;
+}
+
+.pricing-period {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.pricing-note {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 24px;
+  flex: 1;
+}
+
+.pricing-features li {
+  padding: 6px 0;
+  font-size: 14px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pricing-features li:last-child {
+  border-bottom: none;
+}
+
+.pricing-features li::before {
+  content: "✅";
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.pricing-features li {
+  list-style: none;
+}
+
+.pricing-btn {
+  display: inline-block;
+  text-align: center;
+  padding: 12px 24px;
+  border-radius: 30px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: auto;
+}
+
+.pricing-btn:hover {
+  background: var(--accent-mid);
+  transform: scale(1.02);
+}
+
+.pricing-card.popular .pricing-btn {
+  background: var(--accent-light);
+}
+
+.pricing-card.popular .pricing-btn:hover {
+  background: var(--accent-mid);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .pricing-card.popular {
+    order: -1;
+  }
+
+  .pricing-amount {
+    font-size: 28px;
+  }
+}
+
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="javascript:window.scrollTo({top:0,behavior:'smooth'})">Rise on Wave</a>
+  <a href="javascript:window.scrollTo({top:0,behavior:'smooth'})">RISE ON WAVE</a>
 </nav>
 
 <header>
   <h1>RISE ON WAVE</h1>
-  <p> Reset . Release . Rebuild </p>
+  <p> Reset . Release . Retreat </p>
 </header>
 
 <div class="mode-toggle">
@@ -409,23 +661,27 @@ header p {
 <div id="program-view">
 
 <section class="program-section">
-<h2>Surfing is more than a sport.</h2>
+<h2>Not a Surf School. It’s an experience where the ocean becomes your reset space.</h2>
 
 <p>
-Step away from the noise of everyday life. The ocean teaches a different way forward.
+For five days, you’ll disconnect from the noise and demands of modern life and reconnect with something often forgotten: your inner world.
 </p>
 
+<p>
+RISE ON WAVE is a curated wellness retreat built around Surf Therapy — our approach to using the ocean, surfing, and mindful experiences to help you quiet the noise in your mind, reconnect with yourself, and rediscover what truly matters.
+</p>
 
 <p class="wave-lines">
-Read the wave.<br>
-Move with it.<br>
-Grow through it.
+No titles. No status. Just you. <br>
+No experience required. <br>
+No performance expected. <br>
+No pressure to be anyone but yourself.
 </p>
 
 
 <p class="closing-line">
-The city gives you noise.<br>
-The waves show you flow.
+Just bring your body and your heart.<br>
+The rest, the waves will take care of.
 </p>
 
 </section>
@@ -452,10 +708,120 @@ The waves show you flow.
 </section>
 
 <section class="program-section">
-<h2>Program Detail</h2>
-<p>Edit freely later.</p>
+  <h2>Retreat Flow</h2>
+  <p style="color: var(--text-secondary); margin-bottom: 24px;">5-Day Reset Journey</p>
+
+  <div class="accordion">
+    <details>
+      <summary>🌅 Day 1: Arrival &amp; Intention</summary>
+      <img src="https://drive.google.com/uc?export=view&id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ" alt="Day 1" />
+      <p>Arrive at the retreat center, settle in, set your intention for the journey ahead. Welcome circle and orientation.</p>
+    </details>
+
+    <details>
+      <summary>🌊 Day 2: Ocean Connection</summary>
+      <img src="https://drive.google.com/uc?export=view&id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ" alt="Day 2" />
+      <p>Morning surf session to connect with the ocean. Learn to read waves and understand the rhythm of the sea.</p>
+    </details>
+
+    <details>
+      <summary>🏄 Day 3: Flow &amp; Balance</summary>
+      <img src="https://drive.google.com/uc?export=view&id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ" alt="Day 3" />
+      <p>Advanced surf coaching focusing on flow state. Balance work on land and in water.</p>
+    </details>
+
+    <details>
+      <summary>🌅 Day 4: Release &amp; Let Go</summary>
+      <img src="https://drive.google.com/uc?export=view&id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ" alt="Day 4" />
+      <p>Morning meditation by the ocean. Surf session focused on letting go of control and trusting the wave.</p>
+    </details>
+
+    <details>
+      <summary>🌴 Day 5: Integration &amp; Return</summary>
+      <img src="https://drive.google.com/uc?export=view&id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ" alt="Day 5" />
+      <p>Final surf session. Closing circle, sharing reflections, and integrating lessons before departure.</p>
+    </details>
+  </div>
 </section>
 
+<section class="program-section">
+  <h2 style="text-align:center;">Retreat package.</h2>
+  <p style="text-align:center;color:var(--text-secondary);margin-bottom:32px;">Choose your perfect retreat package</p>
+
+  <div class="pricing-grid">
+    <!-- Card 1: Single -->
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <span class="pricing-badge">SOLO</span>
+        <h3>Self Reset</h3>
+        <div class="pricing-amount">฿65,990</div>
+        <div class="pricing-period">/ seat</div>
+        <div class="pricing-note">Ad spend is not included.</div>
+      </div>
+      <ul class="pricing-features">
+        <li>7 high-quality videos</li>
+        <li>10 menu items shot &amp; styled</li>
+        <li>18 posts per month</li>
+        <li>Instagram, Facebook &amp; TikTok management</li>
+        <li>Content strategy &amp; planning</li>
+        <li>Editing, posting &amp; optimization</li>
+      </ul>
+      <a href="วาง link ที่ user กดแล้วพาไปส่ง line OA" class="pricing-btn">Book Now</a>
+    </div>
+
+    <!-- Card 2: Couple (Highlight) -->
+    <div class="pricing-card popular">
+      <div class="pricing-header">
+        <span class="pricing-badge">DUO</span>
+        <h3>Couple Reset</h3>
+        <div class="pricing-amount">฿59,990</div>
+        <div class="pricing-period">/ seat(x2)</div>
+        <div class="pricing-note">Ad spend is not included.</div>
+      </div>
+      <ul class="pricing-features">
+        <li>14 high-quality videos</li>
+        <li>20 menu items shot &amp; styled</li>
+        <li>36 posts per month</li>
+        <li>Instagram, Facebook &amp; TikTok management</li>
+        <li>Content strategy &amp; planning</li>
+        <li>Editing, posting &amp; optimization</li>
+        <li>2 extra coaching sessions</li>
+      </ul>
+      <a href="วาง link ที่ user กดแล้วพาไปส่ง line OA" class="pricing-btn">Book Now</a>
+    </div>
+
+    <!-- Card 3: Team -->
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <span class="pricing-badge">TEAM</span>
+        <h3>Together Reset</h3>
+        <div class="pricing-amount">฿55,990</div>
+        <div class="pricing-period">/ seat(x4)</div>
+        <div class="pricing-note">Ad spend is not included.</div>
+      </div>
+      <ul class="pricing-features">
+        <li>25 high-quality videos</li>
+        <li>40 menu items shot &amp; styled</li>
+        <li>60 posts per month</li>
+        <li>Instagram, Facebook &amp; TikTok management</li>
+        <li>Content strategy &amp; planning</li>
+        <li>Editing, posting &amp; optimization</li>
+        <li>5 extra coaching sessions</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="วาง link ที่ user กดแล้วพาไปส่ง line OA" class="pricing-btn">Book Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DIVIDER IMAGE ===== -->
+<section class="program-section" style="padding: 20px;">
+  <img 
+    src="https://drive.google.com/uc?export=view&id=1kuZik0_mtZ1EkX7lUzHOE3Y3Bcd_JMlk" 
+    alt="Retreat moment"
+    style="width:100%;max-width:900px;border-radius:0;display:block;margin:0 auto;"
+  >
+</section>
 
 <section class="program-section">
 <h2>FAQ</h2>
@@ -506,6 +872,11 @@ function switchMode(mode) {
   document.getElementById('member-view').style.display = mode==='member' ? 'block' : 'none';
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   event.target.classList.add('active');
+
+  // Member Mode ให้สุ่มการ์ดใหม่ทุกครั้งที่เข้ามาดู
+  if (mode === 'member') {
+    renderMembers();
+  }
 }
 
 function parseCSV(txt) {
@@ -564,6 +935,11 @@ function renderMembers(){
     const classOk=activeClass==='all'||m.class===activeClass;
     return name.includes(q)&&classOk;
   });
+
+  // สุ่มลำดับการ์ด เฉพาะเมื่อไม่ได้มีการค้นหา (search box ว่าง)
+  if (q === '') {
+    list = shuffleArray([...list]);
+  }
 
   document.getElementById('memberGrid').innerHTML=list.map(m=>`
   <div class="member-card" onclick="openMember('${m.id}')">
@@ -718,13 +1094,13 @@ loadFAQ();
 loadBenefits();
 </script>
 
-<footer style="background:var(--accent);color:#fff;padding:48px 24px 32px;margin-top:60px;">
+<footer style="background: linear-gradient(135deg, #50B5FF 0%, #2B8CDE 50%, #0078D4  100%);color:#fff;padding:48px 24px 32px;margin-top:60px;">
   <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
     
     <!-- LEFT -->
     <div>
       <div style="font-size:20px;font-weight:700;letter-spacing:3px;margin-bottom:8px;">RISE ON WAVE</div>
-      <div style="font-size:13px;color:var(--highlight);margin-bottom:24px;">Ride the wave. Meet remarkable people.</div>
+      <div style="font-size:13px;color:#fff;margin-bottom:24px;">Reset . Release . Retreat</div>
 
       <!-- Social Icons -->
       <div style="display:flex;gap:16px;margin-bottom:24px;">
@@ -762,7 +1138,7 @@ loadBenefits();
     <a href="https://aromatic-equinox-5e8.notion.site/About-Us-37905e072cdf80969b70f597d7ed2d46" target="_blank" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;">About</a>
     <a href="https://aromatic-equinox-5e8.notion.site/Terms-of-Services-37905e072cdf80c6a138c3d9b15debce" target="_blank" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;">Terms</a>
     <a href="https://aromatic-equinox-5e8.notion.site/Privacy-Policy-37905e072cdf80f9bf83fc7b5da1992d" target="_blank" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;">Privacy</a>
-    <span style="color:rgba(255,255,255,0.3);font-size:13px;margin-left:auto;">© 2025 Rise on Wave</span>
+    <span style="color:rgba(255,255,255,0.3);font-size:13px;margin-left:auto;">© 2026 RISE ON WAVE</span>
   </div>
 </footer>
 
