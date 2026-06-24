@@ -714,38 +714,63 @@ The rest, the waves will take care of.
   <div class="accordion">
     <details>
       <summary>🌅 Day 1: Arrival &amp; Intention</summary>
-      <img src="https://drive.google.com/thumbnail?id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ&sz=w800" alt="Day 1" />
+      <img 
+        src="https://drive.google.com/thumbnail?id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ&sz=w800" 
+        alt="Day 1" 
+        onclick="openAccordionLightbox('1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ')"
+        style="cursor:pointer;"
+      />
       <p>Arrive at the retreat center, settle in, set your intention for the journey ahead. Welcome circle and orientation.</p>
     </details>
 
     <details>
       <summary>🌊 Day 2: Ocean Connection</summary>
-      <img src="https://drive.google.com/thumbnail?id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ&sz=w800" alt="Day 2" />
+      <img 
+        src="https://drive.google.com/thumbnail?id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ&sz=w800" 
+        alt="Day 2" 
+        onclick="openAccordionLightbox('1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ')"
+        style="cursor:pointer;"
+      />
       <p>Morning surf session to connect with the ocean. Learn to read waves and understand the rhythm of the sea.</p>
     </details>
 
     <details>
       <summary>🏄 Day 3: Flow &amp; Balance</summary>
-      <img src="https://drive.google.com/thumbnail?id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ&sz=w800" alt="Day 3" />
+      <img 
+        src="https://drive.google.com/thumbnail?id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ&sz=w800" 
+        alt="Day 3" 
+        onclick="openAccordionLightbox('1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ')"
+        style="cursor:pointer;"
+      />
       <p>Advanced surf coaching focusing on flow state. Balance work on land and in water.</p>
     </details>
 
     <details>
       <summary>🌅 Day 4: Release &amp; Let Go</summary>
-      <img src="https://drive.google.com/thumbnail?id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ&sz=w800" alt="Day 4" />
+      <img 
+        src="https://drive.google.com/thumbnail?id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ&sz=w800" 
+        alt="Day 4" 
+        onclick="openAccordionLightbox('1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ')"
+        style="cursor:pointer;"
+      />
       <p>Morning meditation by the ocean. Surf session focused on letting go of control and trusting the wave.</p>
     </details>
 
     <details>
       <summary>🌴 Day 5: Integration &amp; Return</summary>
-      <img src="https://drive.google.com/thumbnail?id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ&sz=w800" alt="Day 5" />
+      <img 
+        src="https://drive.google.com/thumbnail?id=1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ&sz=w800" 
+        alt="Day 5" 
+        onclick="openAccordionLightbox('1ESdJwLq8ELWmwPT5YeF36NjTromooAKZ')"
+        style="cursor:pointer;"
+      />
       <p>Final surf session. Closing circle, sharing reflections, and integrating lessons before departure.</p>
     </details>
   </div>
 </section>
 
 <section class="program-section">
-  <h2 style="text-align:center;">Retreat package.</h2>
+  <h2 style="text-align:center;">Retreat package</h2>
   <p style="text-align:center;color:var(--text-secondary);margin-bottom:32px;">Choose your perfect retreat package</p>
 
   <div class="pricing-grid">
@@ -1045,6 +1070,15 @@ function lightboxNav(dir){
 function closeLightbox(){
   document.getElementById('lightbox').style.display='none';
   document.body.style.overflow='';
+}
+
+// ===== ACCORDION LIGHTBOX =====
+function openAccordionLightbox(imageId) {
+  document.getElementById('lightbox-img').src = 
+    `https://drive.google.com/thumbnail?id=${imageId}&sz=w1600`;
+  document.getElementById('lightbox').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('lightbox-counter').textContent = '1 / 1';
 }
 
 async function loadFAQ(){
