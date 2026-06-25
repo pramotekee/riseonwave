@@ -922,13 +922,7 @@ The rest, the waves will take care of.
     </div>
   </div>
 
-  <div class="tabs-wrapper">
-    <button class="tab-btn active" onclick="filterClass('all')">All</button>
-    <button class="tab-btn" onclick="filterClass('Class 1')">Class 1</button>
-    <button class="tab-btn" onclick="filterClass('Class 2')">Class 2</button>
-    <button class="tab-btn" onclick="filterClass('Class 3')">Class 3</button>
-    <button class="tab-btn" onclick="toggleClubBenefit()" id="clubBenefitBtn">⭐ Club benefit</button>
-  </div>
+  <div class="tabs-wrapper"></div>
 
   <div id="memberGrid" class="member-grid"></div>
 </div>
@@ -1056,12 +1050,19 @@ async function loadMembers(){
 
 function buildClassFilter(){
   const classes = [...new Set(members.map(m => m.class).filter(c => c))].sort();
-classes.unshift('all');
-  document.querySelector('.tabs-wrapper').innerHTML = classes.map(c => `
+  classes.unshift('all');
+  
+  // สร้างปุ่ม Class
+  let html = classes.map(c => `
     <button class="tab-btn ${c==='all'?'active':''}" onclick="filterClass('${c}')">
       ${c==='all' ? 'All' : 'Class ' + c}
     </button>
   `).join('');
+  
+  // ✅ เพิ่มปุ่ม Club benefit ต่อท้าย (ไม่ให้ถูกลบ)
+  html += `<button class="tab-btn" onclick="toggleClubBenefit()" id="clubBenefitBtn">⭐ Club benefit</button>`;
+  
+  document.querySelector('.tabs-wrapper').innerHTML = html;
 }
 
 function renderMembers(){
