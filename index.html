@@ -922,7 +922,11 @@ The rest, the waves will take care of.
     </div>
   </div>
 
-  <div class="tabs-wrapper"></div>
+  <div class="tabs-wrapper" id="classFilter"></div>
+
+ <div style="max-width:900px;margin:0 auto;padding:0 20px 20px;">
+  <button class="tab-btn" onclick="toggleClubBenefit()" id="clubBenefitBtn" style="margin-right:auto;">⭐ Club benefit</button>
+</div>
 
   <div id="memberGrid" class="member-grid"></div>
 </div>
@@ -1052,17 +1056,12 @@ function buildClassFilter(){
   const classes = [...new Set(members.map(m => m.class).filter(c => c))].sort();
   classes.unshift('all');
   
-  // สร้างปุ่ม Class
-  let html = classes.map(c => `
+  // สร้างปุ่ม Class ทั้งหมด แล้วใส่ใน #classFilter
+  document.getElementById('classFilter').innerHTML = classes.map(c => `
     <button class="tab-btn ${c==='all'?'active':''}" onclick="filterClass('${c}')">
       ${c==='all' ? 'All' : 'Class ' + c}
     </button>
   `).join('');
-  
-  // ✅ เพิ่มปุ่ม Club benefit ต่อท้าย (ไม่ให้ถูกลบ)
-  html += `<button class="tab-btn" onclick="toggleClubBenefit()" id="clubBenefitBtn">⭐ Club benefit</button>`;
-  
-  document.querySelector('.tabs-wrapper').innerHTML = html;
 }
 
 function renderMembers(){
