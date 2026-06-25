@@ -255,6 +255,49 @@ header p {
   opacity: 0.4;
 }
 
+/* ===== CLUB BENEFIT POPUP ===== */
+.club-benefit-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 600;
+  justify-content: center;
+  align-items: center;
+}
+.club-benefit-overlay.open {
+  display: flex;
+}
+.club-benefit-popup {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--card-shadow-hover);
+}
+.club-benefit-popup img {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+.club-benefit-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+.club-benefit-close:hover {
+  color: var(--text-primary);
+}
+
 /* CHIP FILTER */
 .tabs-wrapper {
   padding: 0 20px 20px;
@@ -884,6 +927,7 @@ The rest, the waves will take care of.
     <button class="tab-btn" onclick="filterClass('Class 1')">Class 1</button>
     <button class="tab-btn" onclick="filterClass('Class 2')">Class 2</button>
     <button class="tab-btn" onclick="filterClass('Class 3')">Class 3</button>
+    <button class="tab-btn" onclick="toggleClubBenefit()" id="clubBenefitBtn">⭐ Club benefit</button>
   </div>
 
   <div id="memberGrid" class="member-grid"></div>
@@ -894,6 +938,19 @@ The rest, the waves will take care of.
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- CLUB BENEFIT POPUP -->
+<div id="clubBenefitOverlay" class="club-benefit-overlay" onclick="closeClubBenefit(event)">
+  <div class="club-benefit-popup" onclick="event.stopPropagation()">
+    <button class="club-benefit-close" onclick="closeClubBenefit()">✕</button>
+    <h3 style="font-family:'DM Serif Display',serif;color:#2960F6;margin-bottom:8px;">⭐ Club Benefit</h3>
+    <p style="color:var(--text-secondary);margin-bottom:16px;">Exclusive perks for our members</p>
+    <img 
+      src="https://drive.google.com/thumbnail?id=1bG0JiH1gnOs8qO6100SKgeozhcPq7WcB&sz=w1200" 
+      alt="Club Benefit"
+    />
   </div>
 </div>
 
@@ -1155,6 +1212,28 @@ async function loadBenefits(){
       <div class="b-caption">${r.caption}</div>
     </div>
   `).join('');
+}
+
+// ===== CLUB BENEFIT =====
+function toggleClubBenefit() {
+  const overlay = document.getElementById('clubBenefitOverlay');
+  const btn = document.getElementById('clubBenefitBtn');
+  
+  if (overlay.classList.contains('open')) {
+    overlay.classList.remove('open');
+    btn.classList.remove('active');
+  } else {
+    overlay.classList.add('open');
+    btn.classList.add('active');
+  }
+}
+
+function closeClubBenefit(event) {
+  if (event && event.target !== event.currentTarget) return;
+  const overlay = document.getElementById('clubBenefitOverlay');
+  const btn = document.getElementById('clubBenefitBtn');
+  overlay.classList.remove('open');
+  btn.classList.remove('active');
 }
 
 async function shareProfile(id) {
